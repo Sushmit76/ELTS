@@ -38,7 +38,6 @@ $conn->close();
 
 
 ?>
-
-<h1>
-    You are successfully registerd!
-</h1>
+<?php
+echo " php admin file in the savedata.php"
+?>
