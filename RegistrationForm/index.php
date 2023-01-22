@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
@@ -81,44 +80,26 @@
               let area = document.getElementById("inputarea").value;
               let city = document.getElementById("inputcity").value;
               let number = document.getElementById("inputnumber").value;
-              <?php
-              //assigning value of users data from form
-              $Email = $_POST['E-mail'];
-              $Phone = $_POST['Phone'];
-              $Password = $_POST['Password'];
-              $business = $_POST['business'];
-              $area = $_POST['area'];
-              $city = $_POST['city'];
-              $pincode = $_POST['pincode'];
-              //creating connection
-
-              $databaseHost = 'localhost';
-              $databaseName = 'test'; /// here enter your db name
-              $databaseUsername = 'root'; // username 
-              $databasePassword = 'root'; // ddb user password
-
-              $conn = new mysqli($databaseHost, $databaseUsername, $databasePassword, $databaseName);
-
-
-              //incase connection failed show message and exit from php script
-              if ($conn->connect_error) {
-                die("Connection failed: ");
-                echo $conn->error;
-              }
-
-
-              //2nd step run sql query
-              //inserting data from table to database 
-              $sql = "INSERT INTO students (Name,Email,Phone,Password,business,area,city,pincode) VALUES ('{$Name}','{$Email}', '{$Phone}','{$Password}','{$business}','{$area}','{$city}','{$pincode}'); ";
-              $result = $conn->query($sql);
-
-              //after saving user data to database redirecting user to add page
-
-
-              //3rd step closing connection
-              $conn->close();
-              ?>
-              console.log(name);
+              const data = {
+                inputName: name,
+                inputEmail: email,
+                inputPhone: phone,
+                inputPass: pass,
+                inputBname: bname,
+                inputArea: area,
+                inputCity: city,
+                inputNumber: number
+              };
+              $.ajax({
+                type: "POST",
+                url: "savedata.php",
+                data: {
+                  data: data
+                },
+                success: function(response) {
+                  console.log("Data saved successfully");
+                }
+              });
             }
           </script>
         </div>
